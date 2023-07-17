@@ -2,7 +2,7 @@ user:
   db:
     driver: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://your-ip:3306
-    name: mysql
+    name: wechat
     setting: useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&useSSL=false
 
 spring:
@@ -20,3 +20,7 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+
+mybatis:
+  config-location: 'classpath:mybatis-config.xml'
+  mapper-locations: classpath*:mapper/**/*Mapper.xml

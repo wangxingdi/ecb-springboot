@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @PropertySources(value = {@PropertySource(value = {"classpath:important.properties"}, encoding = "utf-8")})
-@MapperScan(basePackages = {"com.wangxingdi.wechat.**.mapper"})
+@MapperScan(basePackages = {"com.wangxingdi.wechat.**.dao"})
 @SpringBootApplication
 public class WeChatApplication {
 
