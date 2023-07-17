@@ -1,10 +1,10 @@
-package com.wangxingdi.ecb;
+package com.wangxingdi.wechat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EcbApplicationTests {
+class WeChatApplicationTests {
 
 	@Test
 	void contextLoads() {

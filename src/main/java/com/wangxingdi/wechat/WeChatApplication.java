@@ -1,4 +1,4 @@
-package com.wangxingdi.ecb;
+package com.wangxingdi.wechat;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,12 +7,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @PropertySources(value = {@PropertySource(value = {"classpath:important.properties"}, encoding = "utf-8")})
-@MapperScan(basePackages = {"com.wangxingdi.**.mapper"})
+@MapperScan(basePackages = {"com.wangxingdi.wechat.**.mapper"})
 @SpringBootApplication
-public class EcbApplication {
+public class WeChatApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EcbApplication.class, args);
+		SpringApplication.run(WeChatApplication.class, args);
 	}
 
 }
