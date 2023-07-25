@@ -24,3 +24,8 @@ spring:
 mybatis:
   config-location: 'classpath:mybatis-config.xml'
   mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+wx:
+  sns:
+    code2session:
+      url: https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type=authorization_code

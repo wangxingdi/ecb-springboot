@@ -4,37 +4,45 @@
 <mapper namespace="com.wangxingdi.wechat.ecb.dao.WeChatUserDAO">
     <resultMap id="resultMap" type="com.wangxingdi.wechat.ecb.domain.WeChatUser">
         <id column="id" property="id"/>
-        <result column="id" property="id"/>
-        <result column="username" property="username"/>
+        <result column="open_id" property="openId"/>
+        <result column="user_role" property="userRole"/>
+        <result column="user_type" property="userType"/>
+        <result column="encrypt_token" property="encryptToken"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
+        <result column="yn" property="yn"/>
     </resultMap>
 
     <!-- 新增 -->
     <insert id="insert" parameterType="com.wangxingdi.wechat.ecb.domain.WeChatUser" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wechat_user
         (
-        username,
+        open_id,
+        user_role,
+        user_type,
+        encrypt_token,
         create_time,
         update_time,
         yn
         )
         VALUES
         (
-        #{username},
+        #{openId},
+        #{userRole},
+        #{userType},
+        #{encryptToken},
         now(),
         now(),
         1
         )
     </insert>
 
-    <!-- 根据id查询 -->
-    <select id="findById" resultMap="resultMap">
-        SELECT
-        id,
-        username
-        FROM wechat_user
-        WHERE id=#{id} AND yn=1
+    <!-- 根据openId查询 -->
+    <select id="findByOpenId" resultMap="resultMap">
+        SELECT id, open_id, user_role, user_type, encrypt_token
+          FROM wechat_user
+         WHERE open_id = #{openId}
+           AND yn = 1
     </select>
 
 </mapper>

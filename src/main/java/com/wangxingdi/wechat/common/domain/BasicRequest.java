@@ -1,4 +1,4 @@
-package com.wangxingdi.wechat.common;
+package com.wangxingdi.wechat.common.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +19,23 @@ import java.util.Date;
 @AllArgsConstructor
 public class BasicRequest implements Serializable {
 
+    /**
+     * id
+     */
     private Integer id;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
+    /**
+     * 更新时间
+     */
     private Date updateTime;
 
-    private boolean yn;
+    /**
+     * 是否启用
+     */
+    private Integer yn;
 }
