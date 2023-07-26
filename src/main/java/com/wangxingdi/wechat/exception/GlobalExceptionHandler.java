@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public Response exceptionHandler(Exception ex, HttpServletRequest request){
-        log.error("exception: ", ex);
+        log.error("exceptionHandler find exception: {}", ex.getMessage(), ex);
         if(ex instanceof IllegalArgumentException){
             return handleException(ResponseEnums.FAIL.getCode(), ex.getMessage(), request);
         }else if(ex instanceof MethodArgumentNotValidException){

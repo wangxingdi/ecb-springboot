@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -42,5 +44,12 @@ public class Page<T> {
      * 当页数据
      */
     private List<T> data;
+
+    /**
+     * 其他请求对象
+     */
+    @Valid
+    @NotNull(message = "缺失必要的请求数据", groups = {ValidationGroup.Page.class})
+    private T param;
 
 }

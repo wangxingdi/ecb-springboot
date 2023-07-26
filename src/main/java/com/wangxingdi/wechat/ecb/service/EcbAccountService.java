@@ -34,6 +34,7 @@ public class EcbAccountService {
     @Resource
     private EcbAccountDAO ecbAccountDAO;
 
+    @Transactional(rollbackFor = Exception.class)
     public Response<EcbAccount> insert(EcbAccount ecbAccount) {
         Response<EcbAccount> response = getAndAddWeChatUser(ecbAccount);
         if(response.isFail()){
@@ -113,7 +114,7 @@ public class EcbAccountService {
         return page;
     }
 
-
+    @Transactional(readOnly = true)
     public Response<EcbAccount> findByAsId(EcbAccount ecbAccount) {
         EcbAccount account = ecbAccountDAO.findByAsId(ecbAccount);
         if(Objects.isNull(account) || StringUtils.isBlank(account.getPassword())){

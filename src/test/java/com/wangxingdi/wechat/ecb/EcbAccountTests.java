@@ -55,10 +55,10 @@ class EcbAccountTests {
 	@Test
 	public void testPage(){
 		EcbAccount ecbAccount = new EcbAccount();
-		ecbAccount.setUserId(1);
+		ecbAccount.setOpenId("ojE495CzRIAN4tbNUmE73vzmuMNw");
 		Page<EcbAccount> page = new Page<>();
-		page.setPageNum(1);
-		Page<EcbAccount> list = ecbAccountController.page(ecbAccount, page);
+		page.setParam(ecbAccount);
+		Page<EcbAccount> list = ecbAccountController.page(page);
 		System.out.println("testPage=" + JSON.toJSONString(list));
 	}
 

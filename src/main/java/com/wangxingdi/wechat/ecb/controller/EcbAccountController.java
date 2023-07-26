@@ -48,9 +48,9 @@ public class EcbAccountController {
 
     @Log
     @PostMapping("/page")
-    public Page<EcbAccount> page(@Validated(ValidationGroup.Page.class) @RequestBody EcbAccount ecbAccount, @RequestBody Page page){
+    public Page<EcbAccount> page(@Validated(ValidationGroup.Page.class) @RequestBody Page<EcbAccount> page){
         page.setPageStart((page.getPageNum() - 1) * page.getPageSize());
-        return ecbAccountService.page(ecbAccount, page);
+        return ecbAccountService.page(page.getParam(), page);
     }
 
     @Log
