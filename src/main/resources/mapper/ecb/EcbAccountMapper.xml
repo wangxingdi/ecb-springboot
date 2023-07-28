@@ -79,7 +79,7 @@
 
     <!-- 分页查询-列表 -->
     <select id="list" resultMap="resultMap">
-        select as_id, app_name, user_name, '******', remark
+        select as_id, app_name, user_name, '******' as password, remark
           from ecb_account
          where user_id = #{ecbAccount.userId}
         <if test="ecbAccount.appName != null and ecbAccount.appName != ''">

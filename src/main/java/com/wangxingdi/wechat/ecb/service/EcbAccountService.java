@@ -111,6 +111,7 @@ public class EcbAccountService {
         int count = ecbAccountDAO.count(ecbAccount);
         page.setData(list);
         page.setTotal(count);
+        page.setParam(null);
         return page;
     }
 
