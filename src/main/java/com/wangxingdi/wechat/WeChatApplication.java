@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
-@PropertySources(value = {@PropertySource(value = {"classpath:important.properties"}, encoding = "utf-8")})
+@PropertySources(value = {@PropertySource(value = {"classpath:important.properties", "file:config/important.properties"}, encoding = "utf-8", ignoreResourceNotFound = true)})
 @MapperScan(basePackages = {"com.wangxingdi.wechat.**.dao"})
 @SpringBootApplication
 public class WeChatApplication {
