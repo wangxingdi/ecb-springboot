@@ -1,3 +1,8 @@
+server:
+  port: 65534
+  servlet:
+    context-path: /wechat
+
 user:
   db:
     driver: com.mysql.cj.jdbc.Driver
