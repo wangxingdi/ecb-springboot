@@ -2,10 +2,7 @@ package com.wangxingdi.wechat.ecb.domain;
 
 import com.wangxingdi.wechat.common.domain.BasicRequest;
 import com.wangxingdi.wechat.common.domain.ValidationGroup;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -17,6 +14,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class WeChatUser extends BasicRequest implements Serializable {
@@ -24,6 +22,7 @@ public class WeChatUser extends BasicRequest implements Serializable {
     /**
      * openId
      */
+    @NotBlank(message = "缺少必要的openId信息，请重新启动小程序", groups = ValidationGroup.Query.class)
     private String openId;
 
     /**
@@ -48,4 +47,10 @@ public class WeChatUser extends BasicRequest implements Serializable {
      */
     @NotBlank(message = "缺少必要的code信息，请重新启动小程序", groups = ValidationGroup.Init.class)
     private String code;
+
+    /**
+     * 密钥
+     */
+    @NotBlank(message = "缺少必要的secretKey信息，请重新启动小程序", groups = ValidationGroup.Query.class)
+    private Integer secretKey;
 }

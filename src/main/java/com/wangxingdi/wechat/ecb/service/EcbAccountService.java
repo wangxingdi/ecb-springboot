@@ -41,7 +41,7 @@ public class EcbAccountService {
             return response;
         }
         ecbAccount.setUserId(response.getData().getUserId());
-        String encrypt = CryptoUtils.encrypt(ecbAccount.getSecretKey(), ecbAccount.getPassword());
+        String encrypt = CryptoUtils.encryptBySM4(ecbAccount.getSecretKey(), ecbAccount.getPassword());
         ecbAccount.setPassword(encrypt);
         ecbAccount.setAsId(IdUtils.generateOrderedId());
         ecbAccountDAO.insert(ecbAccount);
@@ -52,9 +52,12 @@ public class EcbAccountService {
         WeChatUser param = new WeChatUser();
         param.setOpenId(ecbAccount.getOpenId());
         WeChatUser weChatUser = weChatUserDAO.findByOpenId(param);
-        String encryptToken = CryptoUtils.encrypt(ecbAccount.getSecretKey(), ecbAccount.getOpenId());
+        String encryptToken = CryptoUtils.encryptByMD5(""+ecbAccount.getSecretKey());
         if(Objects.isNull(weChatUser)){
-            weChatUser = new WeChatUser(ecbAccount.getOpenId(), UserRoleEnums.ADMIN.getCode(), UserTypeEnums.ECB.getCode(), encryptToken, null);
+            weChatUser = WeChatUser.builder().openId(ecbAccount.getOpenId())
+                    .userRole(UserRoleEnums.USER.getCode())
+                    .userType(UserTypeEnums.ECB.getCode())
+                    .encryptToken(encryptToken).build();
             weChatUserDAO.insert(weChatUser);
         }else{
             if(!Objects.equals(encryptToken, weChatUser.getEncryptToken())){
@@ -85,12 +88,12 @@ public class EcbAccountService {
         if(Objects.isNull(weChatUser)){
             return Response.ofFail();
         }
-        String encrypt = CryptoUtils.encrypt(ecbAccount.getSecretKey(), ecbAccount.getOpenId());
+        String encrypt = CryptoUtils.encryptBySM4(ecbAccount.getSecretKey(), ecbAccount.getOpenId());
         if(!Objects.equals(encrypt, weChatUser.getEncryptToken())){
             return Response.ofFail(ResponseEnums.FAIL_SECRET_KEY_IS_WRONG);
         }
         ecbAccount.setUserId(weChatUser.getId());
-        ecbAccount.setPassword(CryptoUtils.encrypt(ecbAccount.getSecretKey(), ecbAccount.getPassword()));
+        ecbAccount.setPassword(CryptoUtils.encryptBySM4(ecbAccount.getSecretKey(), ecbAccount.getPassword()));
         int update = ecbAccountDAO.update(ecbAccount);
         return Response.ofSuccess(ecbAccount);
     }
@@ -121,7 +124,7 @@ public class EcbAccountService {
         if(Objects.isNull(account) || StringUtils.isBlank(account.getPassword())){
             return Response.ofFail(ResponseEnums.FAIL);
         }
-        String decrypt = CryptoUtils.decrypt(ecbAccount.getSecretKey(), account.getPassword());
+        String decrypt = CryptoUtils.decryptBySM4(ecbAccount.getSecretKey(), account.getPassword());
         if(StringUtils.isBlank(decrypt)){
             return Response.ofFail(ResponseEnums.FAIL_SECRET_KEY_IS_WRONG);
         }

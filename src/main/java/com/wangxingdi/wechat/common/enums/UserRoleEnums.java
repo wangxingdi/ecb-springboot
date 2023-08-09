@@ -13,6 +13,7 @@ import lombok.Getter;
 public enum UserRoleEnums {
 
     ADMIN("admin", "管理员"),
+    USER("user", "用户"),
     ;
 
     private String code;

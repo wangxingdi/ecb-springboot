@@ -2,6 +2,7 @@ package com.wangxingdi.wechat.util;
 
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.SM4;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import lombok.extern.slf4j.Slf4j;
@@ -26,22 +27,22 @@ public class CryptoUtils {
     }
 
     /**
-     * 加密
+     * sm4加密
      * @param key
      * @param value
      * @return
      */
-    public static String encrypt(Integer key, String value){
+    public static String encryptBySM4(Integer key, String value){
         return sm4(key).encryptHex(value);
     }
 
     /**
-     * 解密
+     * sm4解密
      * @param key
      * @param value
      * @return
      */
-    public static String decrypt(Integer key, String value){
+    public static String decryptBySM4(Integer key, String value){
         String result = null;
         try {
             result = sm4(key).decryptStr(value);
@@ -49,6 +50,15 @@ public class CryptoUtils {
             log.error("com.wangxingdi.wechat.util.CryptoUtils.decrypt is exception, key={}, value={}, exception:", key, value, ex);
         }
         return result;
+    }
+
+    /**
+     * md5加密
+     * @param value
+     * @return
+     */
+    public static String encryptByMD5(String value){
+        return SecureUtil.md5(value);
     }
 
 }

@@ -4,13 +4,18 @@ import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.wangxingdi.wechat.common.domain.Response;
+import com.wangxingdi.wechat.common.enums.ResponseEnums;
+import com.wangxingdi.wechat.common.enums.UserRoleEnums;
+import com.wangxingdi.wechat.common.enums.UserTypeEnums;
 import com.wangxingdi.wechat.ecb.dao.WeChatUserDAO;
 import com.wangxingdi.wechat.ecb.domain.WeChatUser;
+import com.wangxingdi.wechat.util.CryptoUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.MessageFormat;
+import java.util.Objects;
 
 /**
  * 用户相关
@@ -47,5 +52,22 @@ public class WeChatUserService {
         JSONObject jsonObject = JSON.parseObject(res);
         weChatUser.setOpenId(jsonObject.getString("openid"));
         return Response.ofSuccess(weChatUser);
+    }
+
+    public Response<WeChatUser> checkSecretKey(WeChatUser weChatUser) {
+        WeChatUser dbWeChatUser = weChatUserDAO.findByOpenId(weChatUser);
+        String encryptToken = CryptoUtils.encryptByMD5(""+weChatUser.getSecretKey());
+        if(Objects.isNull(weChatUser)){
+            weChatUser = WeChatUser.builder().openId(weChatUser.getOpenId())
+                    .userRole(UserRoleEnums.USER.getCode())
+                    .userType(UserTypeEnums.ECB.getCode())
+                    .encryptToken(encryptToken).build();
+            weChatUserDAO.insert(weChatUser);
+        }else{
+            if(!Objects.equals(encryptToken, dbWeChatUser.getEncryptToken())){
+                return Response.ofFail(ResponseEnums.FAIL_SECRET_KEY_IS_WRONG);
+            }
+        }
+        return Response.ofSuccess();
     }
 }

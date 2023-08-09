@@ -36,6 +36,17 @@ public class WeChatUserController {
     }
 
     /**
+     * 密钥检查
+     * @param weChatUser
+     * @return
+     */
+    @Log
+    @RequestMapping(value= "/checkSecretKey")
+    public Response<WeChatUser> checkSecretKey(@Validated(ValidationGroup.Query.class) @RequestBody WeChatUser weChatUser){
+        return weChatUserService.checkSecretKey(weChatUser);
+    }
+
+    /**
      * 新增
      * @param weChatUser
      * @return

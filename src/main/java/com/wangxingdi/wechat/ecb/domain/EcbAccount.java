@@ -25,7 +25,7 @@ public class EcbAccount extends BasicRequest implements Serializable {
     /**
      * 对外展示账户id
      */
-    @NotBlank(message = "缺少必要的secretKey信息，请重新启动小程序", groups = {ValidationGroup.Query.class, ValidationGroup.Update.class, ValidationGroup.Delete.class})
+    @NotBlank(message = "缺少必要的唯一标识，请重新启动小程序", groups = {ValidationGroup.Query.class, ValidationGroup.Update.class, ValidationGroup.Delete.class})
     private String asId;
 
     /**
