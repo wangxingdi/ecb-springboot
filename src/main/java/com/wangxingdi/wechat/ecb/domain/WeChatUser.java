@@ -5,6 +5,7 @@ import com.wangxingdi.wechat.common.domain.ValidationGroup;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -51,6 +52,6 @@ public class WeChatUser extends BasicRequest implements Serializable {
     /**
      * 密钥
      */
-    @NotBlank(message = "缺少必要的secretKey信息，请重新启动小程序", groups = ValidationGroup.Query.class)
+    @NotNull(message = "缺少必要的secretKey信息，请重新启动小程序", groups = ValidationGroup.Query.class)
     private Integer secretKey;
 }

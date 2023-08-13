@@ -88,7 +88,7 @@ public class EcbAccountService {
         if(Objects.isNull(weChatUser)){
             return Response.ofFail();
         }
-        String encrypt = CryptoUtils.encryptBySM4(ecbAccount.getSecretKey(), ecbAccount.getOpenId());
+        String encrypt = CryptoUtils.encryptByMD5(ecbAccount.getSecretKey()+"");
         if(!Objects.equals(encrypt, weChatUser.getEncryptToken())){
             return Response.ofFail(ResponseEnums.FAIL_SECRET_KEY_IS_WRONG);
         }
@@ -107,10 +107,16 @@ public class EcbAccountService {
             return page;
         }
         ecbAccount.setUserId(weChatUser.getId());
+        if(null != ecbAccount.getAppName()){
+            ecbAccount.setAppName(ecbAccount.getAppName().trim());
+        }
         if(StringUtils.isNotBlank(ecbAccount.getAppName())){
-            ecbAccount.setAppName("%" + ecbAccount.getAppName() + "%");
+            ecbAccount.setAppName("%" + ecbAccount.getAppName().trim() + "%");
         }
         List<EcbAccount> list = ecbAccountDAO.list(ecbAccount, page);
+        for(EcbAccount account : list){
+            account.setPassword(CryptoUtils.decryptBySM4(ecbAccount.getSecretKey(), account.getPassword()));
+        }
         int count = ecbAccountDAO.count(ecbAccount);
         page.setData(list);
         page.setTotal(count);

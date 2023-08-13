@@ -79,9 +79,10 @@
 
     <!-- 分页查询-列表 -->
     <select id="list" resultMap="resultMap">
-        select as_id, app_name, user_name, '******' as password, remark
+        select as_id, app_name, user_name, password, remark
           from ecb_account
          where user_id = #{ecbAccount.userId}
+           and yn = 1
         <if test="ecbAccount.appName != null and ecbAccount.appName != ''">
             and app_name like #{ecbAccount.appName}
         </if>

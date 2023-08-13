@@ -54,6 +54,7 @@ public class EcbAccountController {
     }
 
     @Log
+    @Deprecated
     @PostMapping("/findByAsId")
     public Response<EcbAccount> findByAsId(@Validated(ValidationGroup.Query.class) @RequestBody EcbAccount ecbAccount){
         return ecbAccountService.findByAsId(ecbAccount);

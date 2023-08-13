@@ -57,7 +57,7 @@ public class WeChatUserService {
     public Response<WeChatUser> checkSecretKey(WeChatUser weChatUser) {
         WeChatUser dbWeChatUser = weChatUserDAO.findByOpenId(weChatUser);
         String encryptToken = CryptoUtils.encryptByMD5(""+weChatUser.getSecretKey());
-        if(Objects.isNull(weChatUser)){
+        if(Objects.isNull(dbWeChatUser)){
             weChatUser = WeChatUser.builder().openId(weChatUser.getOpenId())
                     .userRole(UserRoleEnums.USER.getCode())
                     .userType(UserTypeEnums.ECB.getCode())
