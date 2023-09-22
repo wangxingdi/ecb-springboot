@@ -11,7 +11,7 @@
 
 	<groupId>com.wangxingdi</groupId>
 	<artifactId>wechat</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>wechat</name>
 	<description>the service of WeChat for Spring Boot</description>
 	<properties>
